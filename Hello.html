@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Arcade Hello World</title>
+    <style>
+        body {
+            background: radial-gradient(circle at 50% 30%, #222 0%, #111 100%);
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Press Start 2P', monospace, Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .arcade-frame {
+            border: 8px solid #ff00cc;
+            border-radius: 24px;
+            box-shadow: 0 0 40px #ff00cc88, 0 0 0 12px #222 inset;
+            background: linear-gradient(135deg, #222 60%, #ff00cc22 100%);
+            padding: 40px 60px;
+            position: relative;
+            text-align: center;
+        }
+        .arcade-title {
+            font-size: 3em;
+            color: #fff;
+            text-shadow: 0 0 12px #00ffe7, 0 0 24px #ff00cc;
+            letter-spacing: 0.1em;
+            animation: flicker 1.5s infinite alternate;
+        }
+        @keyframes flicker {
+            0%, 100% { opacity: 1; text-shadow: 0 0 12px #00ffe7, 0 0 24px #ff00cc; }
+            50% { opacity: 0.7; text-shadow: 0 0 24px #ff00cc, 0 0 40px #00ffe7; }
+        }
+        .arcade-stars {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .star {
+            position: absolute;
+            width: 4px; height: 4px;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle 2s infinite alternate;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.2; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="arcade-frame">
+        <div class="arcade-title" id="helloText">Hello world</div>
+        <div class="arcade-stars" id="stars"></div>
+    </div>
+    <script>
+        // Generate random stars for arcade effect
+        const stars = document.getElementById('stars');
+        for (let i = 0; i < 40; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.animationDelay = (Math.random() * 2) + 's';
+            stars.appendChild(star);
+        }
+
+        // Animate "Hello world" with a retro arcade effect
+        const helloText = document.getElementById('helloText');
+        let colors = ['#ff00cc', '#00ffe7', '#fff700', '#00ff00', '#ff6600'];
+        let colorIndex = 0;
+        setInterval(() => {
+            helloText.style.color = colors[colorIndex];
+            colorIndex = (colorIndex + 1) % colors.length;
+        }, 300);
+    </script>
+</body>
+</html>
